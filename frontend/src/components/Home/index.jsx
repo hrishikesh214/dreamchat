@@ -1,18 +1,12 @@
-// import io from "socket.io"
 import { useParams } from "react-router-dom"
 import { useSatate, useEffect } from "react"
 
-const Home = () => {
+const Home = ({ ws }) => {
 	const { username } = useParams()
-	console.log(username)
 
 	useEffect(() => {
-		make_connection()
-	})
-
-	const make_connection = async () => {
-		console.log(io.connect("http://localhost:5000"))
-	}
+		ws.send({ ok: true, message: username })
+	}, [])
 
 	return (
 		<div>
