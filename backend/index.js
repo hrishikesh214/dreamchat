@@ -10,26 +10,24 @@ const io = require("socket.io")(server, {
 })
 const cors = require("cors")
 require("dotenv").config()
-const db = require("./models")
 
 app.use(cors())
 app.use(express.json())
 
 app.get("/", (req, res) => {
-	res.send({ ok: true })
-})
-app.get("/add/:pass", async (req, res) => {
-	let u = await db.user.build({ id: "U12321", username: "hrishikesh" })
-	let { pass } = req.params
-	u.setPassword(pass)
-	await u.save()
-	// console.log(u)
-	res.send({ ok: true, correct: u.checkPassword(pass) })
+	res.send({ Hello: "World" })
 })
 
+// ======== routes =================================================================
+app.use("/user", require("./routes/users"))
+
+// ======== server =================================================================
+
 server.listen(process.env.PORT, () => {
-	console.log(`Server listening on port ${chalk.bgGreen(process.env.PORT)}`)
+	console.log(`Server listening on port ${chalk.green(process.env.PORT)}`)
 })
+
+// ======== socket.io =================================================================
 
 io.on("connection", (socket) => {
 	console.log("connected!")

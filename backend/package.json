@@ -5,12 +5,13 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node server.js"
+		"start": "nodemon index.js"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"bcrypt": "^5.0.1",
 		"chalk": "^4.1.2",
 		"cors": "^2.8.5",
 		"dotenv": "^10.0.0",
@@ -19,7 +20,9 @@
 		"express-graphql": "^0.12.0",
 		"graphql": "^15.6.1",
 		"http": "^0.0.1-security",
+		"jsonwebtoken": "^8.5.1",
 		"mysql2": "^2.3.2",
+		"s-ago": "^2.2.0",
 		"sequelize": "^6.7.0",
 		"socket.io": "^4.3.1"
 	}

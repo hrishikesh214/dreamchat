@@ -1,18 +1,12 @@
-const crypto = require("crypto")
+const bcrypt = require("bcrypt")
 
 module.exports = (sequelize, DataTypes, Model) => {
 	class User extends Model {
 		setPassword(password) {
-			this.hash = crypto.randomBytes(16).toString("hex")
-			this.password = crypto
-				.pbkdf2Sync(password, this.hash, 10, 64, `sha512`)
-				.toString(`hex`)
+			this.password = bcrypt.hashSync(password, 10)
 		}
 		checkPassword(password) {
-			var hash = crypto
-				.pbkdf2Sync(password, this.hash, 10, 64, `sha512`)
-				.toString(`hex`)
-			return this.hash === hash
+			return bcrypt.compareSync(password, this.password)
 		}
 	}
 
@@ -27,9 +21,8 @@ module.exports = (sequelize, DataTypes, Model) => {
 				type: DataTypes.STRING(30),
 				comment: "unique username",
 			},
-			hash: {
-				type: DataTypes.STRING,
-				comment: "unique hash for password",
+			email: {
+				type: DataTypes.STRING(30),
 			},
 			password: {
 				type: DataTypes.STRING,
