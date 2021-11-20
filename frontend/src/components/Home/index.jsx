@@ -3,10 +3,14 @@ import { useSatate, useEffect } from "react"
 
 const Home = ({ ws }) => {
 	const { username } = useParams()
+	let cid = "C6292"
 
 	useEffect(() => {
-		ws.send({ ok: true, message: username })
+		console.log("[Home] use effect")
 	}, [])
+	console.log("home called")
+
+	ws.on(`chat_${cid}`, (e) => console.log(`[chat_${cid}]`, e))
 
 	return (
 		<div>

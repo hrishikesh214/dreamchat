@@ -1,6 +1,6 @@
 const Sequalize = require("sequelize")
 const chalk = require("chalk")
-const sequalize_log = false
+const configs = require("../configs")
 
 const sequalize = new Sequalize(
 	process.env.DBNAME,
@@ -9,7 +9,7 @@ const sequalize = new Sequalize(
 	{
 		dialect: "mysql",
 		host: process.env.DBHOST,
-		logging: !sequalize_log
+		logging: !configs.log_query
 			? false
 			: (msg) =>
 					console.log(`${chalk.yellowBright("[sequalize]")} ${msg}`),
@@ -18,7 +18,11 @@ const sequalize = new Sequalize(
 
 sequalize
 	.authenticate()
-	.then(() => console.log(`${chalk.green("[log]")} Database connected...`))
+	.then(
+		() =>
+			configs.log &&
+			console.log(`${chalk.green("[log]")} Database connected...`)
+	)
 	.catch((e) =>
 		console.log(`${chalk.red("[error]")} ${e} \n DB NOT CONNECTED`)
 	)
@@ -47,6 +51,7 @@ db.chat.hasMany(db.message, { foreignKey: "chat_id", sourceKey: "id" })
 db.message.belongsTo(db.chat, { foreignKey: "chat_id", sourceKey: "id" })
 
 db.sequalize.sync({ force: 0, alter: 1 }).then(() => {
-	console.log(`${chalk.yellowBright("[sequalize]")} Database Synced...`)
+	configs.log &&
+		console.log(`${chalk.yellowBright("[sequalize]")} Database Synced...`)
 })
 module.exports = db

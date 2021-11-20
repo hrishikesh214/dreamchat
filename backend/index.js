@@ -1,3 +1,4 @@
+require("dotenv").config()
 const http = require("http")
 const chalk = require("chalk")
 const express = require("express")
@@ -9,7 +10,8 @@ const io = require("socket.io")(server, {
 	},
 })
 const cors = require("cors")
-require("dotenv").config()
+const jwt = require("jsonwebtoken")
+const { configs, authenticator, handle, logger } = require("./utils")
 
 app.use(cors())
 app.use(express.json())
@@ -20,20 +22,65 @@ app.get("/", (req, res) => {
 
 // ======== routes =================================================================
 app.use("/user", require("./routes/users"))
+app.post(
+	"/user/logout",
+	authenticator,
+	handle(require("./controllers/users").logout(app))
+)
 
 // ======== server =================================================================
 
 server.listen(process.env.PORT, () => {
-	console.log(`Server listening on port ${chalk.green(process.env.PORT)}`)
+	console.log(
+		`${chalk.greenBright("[server]")} listening on port ${chalk.green(
+			process.env.PORT
+		)}`
+	)
 })
 
 // ======== socket.io =================================================================
 
-io.on("connection", (socket) => {
-	console.log("connected!")
-	socket.send({ ok: true, message: "connected!" })
+const events = require("./event_handlers")
+app.active = {}
 
-	socket.on("message", (m) => console.log(m))
+// ======== socket.io authentication ==========================================================
+io.use(function (socket, next) {
+	if (socket?.handshake?.query?.token) {
+		const [type, token] = socket.handshake.query.token.split(" ")
+		if (type !== "Bearer") next(new Error("Authentication type error"))
+		jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
+			if (err) return next(new Error("Authentication error"))
+			socket.decoded = decoded
+			next()
+		})
+	} else {
+		console.log("no token")
+		next(new Error("Authentication error"))
+	}
 })
 
-io.on("disconnection", (e) => console.log(e))
+io.on("connection", (socket) => {
+	app.event_types = {
+		system: new events.system_events(app, socket),
+		user: new events.user_events(app, socket),
+	}
+	for (var ev in app.event_types) {
+		let { events } = app.event_types[ev]
+		for (var event in events) {
+			socket.on(event, events[event])
+		}
+	}
+	app.active[socket.decoded.id] = socket
+	configs.log &&
+		console.log(
+			`${chalk.yellow("[socket]")} ${chalk.green(
+				socket.decoded.id
+			)} connected!`
+		)
+})
+
+io.on("disconnection", (e) => {
+	configs.log && console.log(`Socket disconnected: ${e.id}`)
+})
+
+// setInterval(() => io.emit("core", { gg: true }, "ok"), 2000)

@@ -1,4 +1,4 @@
-const { db } = require("../utils")
+const { db, logger } = require("../utils")
 const jwt = require("jsonwebtoken")
 const User = db.user
 
@@ -46,7 +46,6 @@ exports.login = async (req, res) => {
 	const token = jwt.sign(
 		{
 			id: user.id,
-			username: user.username,
 		},
 		process.env.JWT_SECRET ?? "wdjdhdwdg921e1g"
 	)
@@ -54,4 +53,12 @@ exports.login = async (req, res) => {
 		ok: true,
 		token,
 	})
+}
+
+exports.logout = (app) => {
+	return async (req, res, next) => {
+		// logger("logout", req)
+		delete app.active[req.user.id]
+		res.send({ ok: true })
+	}
 }
