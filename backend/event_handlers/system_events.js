@@ -21,6 +21,5 @@ function ping() {
 }
 
 function show_all() {
-	console.log(this.app)
 	logger(`see bellow \n `, Object.keys(this.app.active))
 }

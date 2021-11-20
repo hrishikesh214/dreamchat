@@ -21,12 +21,17 @@ app.get("/", (req, res) => {
 })
 
 // ======== routes =================================================================
+
+// === User ===
 app.use("/user", require("./routes/users"))
 app.post(
 	"/user/logout",
 	authenticator,
 	handle(require("./controllers/users").logout(app))
 )
+
+// === 	Chat ===
+app.use("/chat", require("./routes/chats"))
 
 // ======== server =================================================================
 

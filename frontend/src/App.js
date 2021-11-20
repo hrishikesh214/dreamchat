@@ -3,11 +3,13 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 import Home from "./components/Home"
+import Whiteboard from "./components/Whiteboard"
 
 const ws = io.connect("http://localhost:5000", {
 	query: {
 		token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlU0NDgyNyIsImlhdCI6MTYzNzMyMzg5OH0.nmoA7Kuxkdou-CqCW-rPUQOX_n0DkwstAokko1GnUM4",
 		token1: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlU4NDQ3NiIsImlhdCI6MTYzNzMzMjk5OX0.7xjyvabyCpNUZbVmkIm_nykfH8lj-F-FCXrz55NYmP0",
+		token2: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlU0NTQ3NSIsImlhdCI6MTYzNzQxNTMwN30.jS9MTWv2VJMjxICEoLU2IMKtvNVD0o2TSVi8iHlRUFc",
 	},
 })
 
@@ -35,9 +37,13 @@ const App = () => {
 	return (
 		<>
 			<Router>
+				<Route path="/whiteboard" exact>
+					<Whiteboard />{" "}
+				</Route>
 				<Route path="/">
 					<Home ws={ws} />
 				</Route>
+
 				<button onClick={() => ws.emit("show_all", { ok: true })}>
 					test
 				</button>
