@@ -1,10 +1,10 @@
 import io from "socket.io-client"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import "./universal.css"
 import { useState, useEffect } from "react"
 
 import Home from "./components/Home"
-import Whiteboard from "./components/Whiteboard"
+import Livedoc from "./components/Livedoc"
 
 const ws = io.connect("http://localhost:5000", {
 	query: {
@@ -38,9 +38,14 @@ const App = () => {
 	return (
 		<>
 			<Router>
-				<Route path="/">
-					<Home ws={ws} />
-				</Route>
+				<Switch>
+					<Route exact path="/">
+						<Home ws={ws} />
+					</Route>
+					<Route path="/livedoc">
+						<Livedoc ws={ws} />
+					</Route>
+				</Switch>
 
 				{/* <button onClick={() => ws.emit("show_all", { ok: true })}>
 					test

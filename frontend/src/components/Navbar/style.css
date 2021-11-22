@@ -41,6 +41,8 @@
 .navbar .navbar-brand a {
   color: var(--grey);
   text-decoration: none;
+  -webkit-animation: logo-animation 10s linear alternate infinite;
+          animation: logo-animation 10s linear alternate infinite;
 }
 
 .navbar .title {
@@ -65,6 +67,7 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-right: 1rem;
 }
 
 .navbar .opts .opt {
@@ -82,5 +85,17 @@
 
 .navbar .opts .opt + .opt {
   margin-left: 1rem;
+}
+
+@-webkit-keyframes logo-animation {
+  to {
+    color: var(--primary);
+  }
+}
+
+@keyframes logo-animation {
+  to {
+    color: var(--primary);
+  }
 }
 /*# sourceMappingURL=style.css.map */

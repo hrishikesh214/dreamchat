@@ -68,6 +68,8 @@ io.on("connection", (socket) => {
 	app.event_types = {
 		system: new events.system_events(app, socket),
 		user: new events.user_events(app, socket),
+		chat: new events.chat_events(app, socket),
+		livedoc: new events.livedoc_events(app, socket),
 	}
 	for (var ev in app.event_types) {
 		let { events } = app.event_types[ev]

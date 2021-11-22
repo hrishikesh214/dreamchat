@@ -30,6 +30,7 @@
 		a {
 			color: var(--grey);
 			text-decoration: none;
+			animation: logo-animation 10s linear alternate infinite;
 		}
 	}
 
@@ -47,6 +48,7 @@
 		font-weight: 500;
 		display: flex;
 		align-items: center;
+		margin-right: 1rem;
 		.opt {
 			@include hover-bold;
 			cursor: pointer;
@@ -58,5 +60,11 @@
 		.opt + .opt {
 			margin-left: 1rem;
 		}
+	}
+}
+
+@keyframes logo-animation {
+	to {
+		color: var(--primary);
 	}
 }

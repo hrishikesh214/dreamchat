@@ -35,6 +35,7 @@ db.user = require("./User")(sequalize, DataTypes, Model)
 db.chat = require("./Chat")(sequalize, DataTypes, Model)
 db.user_chat = require("./User_Chat")(sequalize, DataTypes, Model)
 db.message = require("./Message")(sequalize, DataTypes, Model)
+db.livedoc = require("./Livedoc")(sequalize, DataTypes, Model)
 
 // User and Chat with UC
 db.user.hasMany(db.user_chat, { foreignKey: "user_id", sourceKey: "id" })
