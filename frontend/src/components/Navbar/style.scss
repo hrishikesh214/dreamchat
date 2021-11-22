@@ -1,0 +1,62 @@
+@mixin hover-bold {
+	&:hover {
+		font-weight: bold;
+	}
+}
+
+.navbar {
+	// grid-area: navbar;
+	background-color: var(--black);
+	font-family: var(--heavy);
+	color: var(--grey);
+	font-weight: bold;
+	font-size: 0.8rem;
+	display: flex;
+	padding: 0.3rem 0.5rem;
+	align-items: center;
+	justify-content: space-between;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
+
+	.navbar-brand {
+		@include hover-bold;
+		letter-spacing: 0.5px;
+		cursor: pointer;
+		a {
+			color: var(--grey);
+			text-decoration: none;
+		}
+	}
+
+	.title {
+		@include hover-bold;
+		letter-spacing: 2px;
+		width: 100%;
+		display: grid;
+		place-items: center;
+		cursor: pointer;
+	}
+
+	.opts {
+		letter-spacing: initial;
+		font-weight: 500;
+		display: flex;
+		align-items: center;
+		.opt {
+			@include hover-bold;
+			cursor: pointer;
+			a {
+				color: var(--grey);
+				text-decoration: none;
+			}
+		}
+		.opt + .opt {
+			margin-left: 1rem;
+		}
+	}
+}

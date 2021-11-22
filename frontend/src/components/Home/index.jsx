@@ -1,39 +1,53 @@
 import { useParams } from "react-router-dom"
 import { Component, useSatate, useEffect } from "react"
-
-// const Home = ({ ws }) => {
-// 	const { username } = useParams()
-// let cid = "C6292"
-
-// 	useEffect(() => {
-// 		console.log("[Home] use effect")
-// ws.on(`chat_${cid}`, (e) => console.log(`[chat_${cid}]`, e))
-// 	}, [])
-// 	console.log("home called")
-
-// 	return (
-// 		<div>
-// 			<h1>Hello {username}</h1>
-// 		</div>
-// 	)
-// }
+import Navbar from "../Navbar"
+import Footer from "../Footer"
+import "./style.css"
 
 class Home extends Component {
 	constructor(props) {
 		super(props)
 		this.ws = props.ws
 	}
-	componentDidMount() {
-		console.log("[Home] componentDidMount")
-		let cid = "C6292"
-		this.ws.on(`chat_${cid}`, (e) => console.log(`[chat_${cid}]`, e))
-	}
+	componentDidMount() {}
 
 	render() {
 		return (
-			<div>
-				<h1>Hello </h1>
-			</div>
+			<>
+				<Navbar opts={["signup", "login", "livedoc"]} />
+				<main>
+					<section className="s1">
+						<div className="big1">
+							<h1>Just Go </h1>
+
+							<h1>Dreaming</h1>
+						</div>
+						<div className="livedoc-ad">
+							<h1>LiveDoc</h1>
+							<span>
+								Edit document in real-time <br />
+								with your friend
+							</span>
+							<span>No Signup</span>
+						</div>
+					</section>
+					<section className="s2">
+						<div className="random-chat-ad">
+							<h1>
+								Have <span className="highlight-big">Fun</span>
+								<br />
+								With randoms
+							</h1>
+						</div>
+						<div className="ad-screen">
+							<div className="ad-img">
+								<img src="" alt="SS" />
+							</div>
+						</div>
+					</section>
+				</main>
+				<Footer />
+			</>
 		)
 	}
 }

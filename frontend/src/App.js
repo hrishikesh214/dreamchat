@@ -1,5 +1,6 @@
 import io from "socket.io-client"
 import { BrowserRouter as Router, Route } from "react-router-dom"
+import "./universal.css"
 import { useState, useEffect } from "react"
 
 import Home from "./components/Home"
@@ -37,14 +38,11 @@ const App = () => {
 	return (
 		<>
 			<Router>
-				<Route path="/whiteboard" exact>
-					<Whiteboard />{" "}
-				</Route>
 				<Route path="/">
 					<Home ws={ws} />
 				</Route>
 
-				<button onClick={() => ws.emit("show_all", { ok: true })}>
+				{/* <button onClick={() => ws.emit("show_all", { ok: true })}>
 					test
 				</button>
 				<button
@@ -53,7 +51,7 @@ const App = () => {
 					check status
 				</button>
 				<button onClick={() => ws.send("ok")}>Send</button>
-				<button onClick={calc_latency}>ping</button>
+				<button onClick={calc_latency}>ping</button> */}
 			</Router>
 		</>
 	)
