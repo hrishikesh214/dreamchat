@@ -12,6 +12,7 @@ const io = require("socket.io")(server, {
 const cors = require("cors")
 const jwt = require("jsonwebtoken")
 const { configs, authenticator, handle, logger } = require("./utils")
+const { v4: uuidV4 } = require("uuid")
 
 app.use(cors())
 app.use(express.json())
@@ -50,17 +51,29 @@ app.active = {}
 
 // ======== socket.io authentication ==========================================================
 io.use(function (socket, next) {
-	if (socket?.handshake?.query?.token) {
+	if (
+		socket?.handshake?.query?.token &&
+		socket?.handshake?.query?.token != "null"
+	) {
 		const [type, token] = socket.handshake.query.token.split(" ")
-		if (type !== "Bearer") next(new Error("Authentication type error"))
+		if (type !== "Bearer" && type !== "Guest") {
+			next(new Error("Authentication type error"))
+		}
 		jwt.verify(token, process.env.JWT_SECRET, function (err, decoded) {
 			if (err) return next(new Error("Authentication error"))
 			socket.decoded = decoded
 			next()
 		})
 	} else {
-		console.log("no token")
-		next(new Error("Authentication error"))
+		let temp_id = `GUEST_${uuidV4()}`
+		socket.decoded = {
+			id: temp_id,
+		}
+		socket.emit(
+			"set_guest",
+			jwt.sign({ id: temp_id }, process.env.JWT_SECRET)
+		)
+		next()
 	}
 })
 

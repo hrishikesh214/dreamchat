@@ -1,6 +1,12 @@
-let selector = 0
+let selector = 1
 
 const defaults = [
+	{
+		port: 3000,
+	},
+	{
+		port: 3000,
+	},
 	{
 		port: 3000,
 	},
@@ -10,9 +16,21 @@ const links = [
 	{
 		home: `http://localhost:${defaults[0].port}`,
 	},
+	{
+		home: `http://192.168.0.106:${defaults[0].port}`,
+	},
+	{
+		home: `http://localhost:${defaults[0].port}`,
+	},
 ]
 
 const api = [
+	{
+		base: "http://localhost:5000",
+	},
+	{
+		base: "http://192.168.0.106:5000",
+	},
 	{
 		base: "http://localhost:5000",
 	},

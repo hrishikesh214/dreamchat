@@ -6,16 +6,40 @@ class Footer extends Component {
 		super(props)
 	}
 
+	redirect_to(path) {
+		window.location.href = path
+	}
+
 	render() {
 		return (
 			<>
 				<footer className="footer">
 					<div className="logo">Dreamchat</div>
 					<div className="menu">
-						<div className="option">LiveDoc</div>
-						<div className="option">About</div>
-						<div className="option">Signup</div>
-						<div className="option">Contact</div>
+						<div
+							className="option"
+							onClick={() => this.redirect_to("/livedoc")}
+						>
+							LiveDoc
+						</div>
+						<div
+							className="option"
+							onClick={() => this.redirect_to("/about")}
+						>
+							About
+						</div>
+						<div
+							className="option"
+							onClick={() => this.redirect_to("/signup")}
+						>
+							Signup
+						</div>
+						<div
+							className="option"
+							onClick={() => this.redirect_to("/contact")}
+						>
+							Contact
+						</div>
 					</div>
 				</footer>
 			</>

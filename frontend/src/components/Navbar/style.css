@@ -67,11 +67,13 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  justify-items: center;
   margin-right: 1rem;
 }
 
 .navbar .opts .opt {
   cursor: pointer;
+  text-align: center;
 }
 
 .navbar .opts .opt:hover {
@@ -85,6 +87,17 @@
 
 .navbar .opts .opt + .opt {
   margin-left: 1rem;
+}
+
+@media (max-width: 768px) {
+  .navbar .opts {
+    margin-right: 0;
+    -ms-flex-item-align: end;
+        align-self: flex-end;
+  }
+  .navbar .opts .opt {
+    margin-left: 0;
+  }
 }
 
 @-webkit-keyframes logo-animation {

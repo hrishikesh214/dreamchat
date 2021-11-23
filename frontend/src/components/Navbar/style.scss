@@ -48,10 +48,12 @@
 		font-weight: 500;
 		display: flex;
 		align-items: center;
+		justify-items: center;
 		margin-right: 1rem;
 		.opt {
 			@include hover-bold;
 			cursor: pointer;
+			text-align: center;
 			a {
 				color: var(--grey);
 				text-decoration: none;
@@ -59,6 +61,13 @@
 		}
 		.opt + .opt {
 			margin-left: 1rem;
+		}
+		@media (max-width: 768px) {
+			margin-right: 0;
+			align-self: flex-end;
+			.opt {
+				margin-left: 0;
+			}
 		}
 	}
 }

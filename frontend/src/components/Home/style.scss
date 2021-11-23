@@ -113,6 +113,18 @@ section {
 				width: 90%;
 			}
 		}
+		.btn-start-livedoc {
+			@include underline_anim(currentcolor);
+			cursor: pointer;
+			margin: 3rem 0;
+			width: max-content;
+			padding: 0.9em 1.3em;
+			font-size: 1.3rem;
+			font-weight: bold;
+			background-color: var(--secondary);
+			color: var(--white);
+			border: none;
+		}
 	}
 }
 
@@ -130,6 +142,7 @@ section {
 		padding-top: 17vh;
 
 		@media (max-width: 768px) {
+			margin-top: 5rem;
 			width: 100%;
 			padding: 5rem 3rem;
 			padding-top: 10vh;

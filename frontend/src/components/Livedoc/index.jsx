@@ -5,26 +5,53 @@ import {
 	Route,
 	Redirect,
 } from "react-router-dom"
-import { Component, useSatate, useEffect } from "react"
+import { Component, useState, useEffect } from "react"
 import Navbar from "../Navbar"
 import Footer from "../Footer"
 import "./style.css"
 import TextEditor from "./Editor"
 import { v4 as uuidV4 } from "uuid"
 
-export default function Livedoc(props) {
+export default function Livedoc({ ws }) {
 	let { url, path } = useRouteMatch()
+	if (url.endsWith("/")) url = url.slice(0, -1)
+	const [lds, setLds] = useState([])
+	const [toLoad, setToLoad] = useState(true)
+
+	useEffect(() => {
+		ws.once("load_livedocs", (livedocs) => {
+			setLds(livedocs)
+			setToLoad(false)
+		})
+
+		ws.emit("get_livedocs")
+	}, [])
 
 	return (
 		<>
 			<Navbar title="LiveDoc" opts={["signup", "login"]} />
 			<Switch>
-				<Route exact path={url}>
+				<Route exact path={`${url}/new`}>
 					<Redirect to={`${url}/${uuidV4()}`} />
 				</Route>
+				<Route exact path={url}>
+					<main className="livedoc-home">
+						<h1>LiveDoc</h1>
+						<div className="doc-list">
+							<div className="livedoc-item add">
+								<a href={`${url}/new`}>Create new</a>
+							</div>
+							{lds.map((ld) => (
+								<div className="livedoc-item">
+									<a href={`${url}/${ld.id}`}>{ld.name}</a>
+								</div>
+							))}
+						</div>
+					</main>
+				</Route>
 				<Route path={`${url}/:id`}>
-					<main>
-						<TextEditor ws={props.ws} />
+					<main className="livedoc">
+						<TextEditor ws={ws} />
 					</main>
 				</Route>
 			</Switch>

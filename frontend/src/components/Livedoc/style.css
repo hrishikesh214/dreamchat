@@ -1,1 +1,210 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+.livedoc-home {
+  padding: 4rem 7rem;
+  font-size: 1.3rem;
+  min-height: 80vh;
+}
+
+@media (max-width: 768px) {
+  .livedoc-home {
+    font-size: 1.1rem;
+    padding: 2rem;
+  }
+}
+
+.livedoc-home h1 {
+  font-size: 4rem;
+  margin: 3rem 0;
+}
+
+.livedoc-home .doc-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.livedoc-home .doc-list .livedoc-item {
+  margin: 1rem 0;
+}
+
+.livedoc-home .doc-list .livedoc-item:is(.add) {
+  font-family: var(--heavy);
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.5em 0.7em;
+  background-color: var(--secondary);
+}
+
+.livedoc-home .doc-list .livedoc-item a {
+  position: relative;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+}
+
+.livedoc-home .doc-list .livedoc-item a::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 0.03em;
+  background: var(--primary);
+  bottom: 0;
+  left: 0;
+  -webkit-transition: -webkit-transform 200ms ease-in;
+  transition: -webkit-transform 200ms ease-in;
+  transition: transform 200ms ease-in;
+  transition: transform 200ms ease-in, -webkit-transform 200ms ease-in;
+  -webkit-transform: scaleX(0);
+          transform: scaleX(0);
+  -webkit-transform-origin: right;
+          transform-origin: right;
+}
+
+.livedoc-home .doc-list .livedoc-item a:hover::before {
+  -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+  -webkit-transform-origin: left;
+          transform-origin: left;
+}
+
+.livedoc {
+  display: -ms-grid;
+  display: grid;
+  min-height: 90vh;
+  padding: 2rem 3rem;
+  -ms-grid-columns: 80% auto;
+      grid-template-columns: 80% auto;
+  -ms-grid-rows: 4rem 7rem auto 3rem 2rem;
+      grid-template-rows: 4rem 7rem auto 3rem 2rem;
+      grid-template-areas: "desc date" "desc ." "editor editor" "tags controls" "tags .";
+  gap: 1rem;
+}
+
+@media (max-width: 786px) {
+  .livedoc {
+    padding: 2rem 1.1rem;
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    -ms-grid-rows: auto;
+        grid-template-rows: auto;
+        grid-template-areas: "date" "desc" "editor" "tags" "controls";
+  }
+}
+
+.livedoc__desc {
+  width: 100%;
+  height: 100%;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: desc;
+}
+
+.livedoc__desc input {
+  cursor: pointer;
+  font-size: 2.5rem;
+  font-family: var(--heavy);
+  font-weight: bold;
+  letter-spacing: 2px;
+  background: transparent;
+  border: none;
+  color: var(--white);
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+@media (max-width: 786px) {
+  .livedoc__desc {
+    font-size: 2rem;
+  }
+}
+
+.livedoc__date {
+  width: 100%;
+  height: 100%;
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: date;
+  text-align: right;
+  padding: 1rem 0rem;
+  font-size: 0.9rem;
+  color: var(--grey);
+  font-family: var(--heavy);
+}
+
+.livedoc__editor {
+  --h: 20rem;
+  width: 100%;
+  height: 100%;
+  -ms-grid-row: 3;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: editor;
+  border: none;
+  border-radius: 7px;
+  font-size: 2rem;
+}
+
+.livedoc__editor .container {
+  min-height: var(--h);
+}
+
+.livedoc__editor .ql-toolbar,
+.livedoc__editor .ql-container {
+  border: none !important;
+  background-color: white;
+  color: black;
+}
+
+.livedoc__editor .ql-container {
+  min-height: var(--h);
+  font-size: 1rem;
+}
+
+.livedoc__tags {
+  width: 100%;
+  height: 100%;
+  -ms-grid-row: 4;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: tags;
+}
+
+.livedoc__controls {
+  -ms-grid-row: 4;
+  -ms-grid-column: 2;
+  grid-area: controls;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.livedoc__controls .btn-stop {
+  cursor: pointer;
+  background-color: #ff2424;
+  border: none;
+  padding: 0.5em 0.7em;
+  font-size: 1.3rem;
+  color: var(--white);
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+@media (max-width: 786px) {
+  .livedoc__controls .btn-stop {
+    font-size: 1rem;
+  }
+}
+/*# sourceMappingURL=style.css.map */

@@ -29,6 +29,14 @@ class Home extends Component {
 								with your friend
 							</span>
 							<span>No Signup</span>
+							<button
+								class="btn-start-livedoc"
+								onClick={() => {
+									window.location = "/livedoc"
+								}}
+							>
+								Start now
+							</button>
 						</div>
 					</section>
 					<section className="s2">
@@ -41,7 +49,10 @@ class Home extends Component {
 						</div>
 						<div className="ad-screen">
 							<div className="ad-img">
-								<img src="" alt="SS" />
+								<img
+									src="https://unsplash.it/210/380"
+									alt="SS"
+								/>
 							</div>
 						</div>
 					</section>
