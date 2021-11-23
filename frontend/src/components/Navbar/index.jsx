@@ -1,13 +1,66 @@
-import { useParams } from "react-router-dom"
-
-import { Component, useSatate, useEffect } from "react"
+import { Component } from "react"
 
 import "./style.css"
+
+const _paths = {
+	"": { title: "", options: ["livedoc", "signup", "login"] },
+	signup: { title: "Signup", options: ["livedoc", "home", "login"] },
+	login: { title: "Login", options: ["livedoc", "home", "signup"] },
+	chat: { title: "Chat", options: [] },
+	logout: { title: "Logging off", options: [] },
+	livedoc: { title: "LiveDoc", options: ["home"] },
+	about: { title: "About", options: ["home"] },
+	contact: { title: "Contact", options: ["home"] },
+}
+
+function get_path_route() {
+	return window.location.href.split("/")[3]
+}
+
+function generate_config() {
+	var config = { title: "", options: [] }
+	var url = get_path_route()
+	config = _paths[url]
+	return config
+}
+
+function normalize_opts(options) {
+	var token_str = localStorage.getItem("DTOKEN")
+	if (token_str !== null && token_str.indexOf("Bearer") !== -1) {
+		//add logout
+		if (options.indexOf("logout") === -1) {
+			options.push("logout")
+		}
+		//remove login and signup
+		if (options.indexOf("login") !== -1) {
+			options.splice(options.indexOf("login"), 1)
+		}
+		if (options.indexOf("signup") !== -1) {
+			options.splice(options.indexOf("signup"), 1)
+		}
+	} else {
+		// add login
+		if (options.indexOf("login") === -1 && get_path_route() !== "login") {
+			options.push("login")
+		}
+		//add signup
+		if (options.indexOf("signup") === -1 && get_path_route() !== "signup") {
+			options.push("signup")
+		}
+
+		// remove logout
+		if (options.indexOf("logout") !== -1) {
+			options.splice(options.indexOf("logout"), 1)
+		}
+	}
+	return options
+}
 
 class Navbar extends Component {
 	constructor(props) {
 		super(props)
 		this.opts = {
+			home: { name: "Home", path: "/" },
 			signup: {
 				name: "Signup",
 				path: "/signup",
@@ -30,11 +83,10 @@ class Navbar extends Component {
 			},
 		}
 	}
-	componentDidMount() {}
 
 	render() {
-		var defaultOpts = ["livedoc", "login"]
-		let opts = this.props.opts ?? defaultOpts
+		var { title, options: opts } = generate_config()
+		opts = normalize_opts(opts)
 
 		return (
 			<>
@@ -42,7 +94,7 @@ class Navbar extends Component {
 					<div className="navbar-brand">
 						<a href="/">Dreamchat</a>
 					</div>
-					<div className="title">{this.props.title ?? ""}</div>
+					<div className="title">{title}</div>
 					<div className="opts">
 						{opts.map((opt) => (
 							<div className="opt">

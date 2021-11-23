@@ -1,4 +1,4 @@
-let selector = 1
+let selector = 0
 
 const defaults = [
 	{

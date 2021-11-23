@@ -1,26 +1,25 @@
 import io from "socket.io-client"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import "./universal.css"
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 
+import "./universal.css"
+import { api } from "./components/configs"
+
+// ======== importing components ========
 import Home from "./components/Home"
 import Livedoc from "./components/Livedoc"
 import Loader from "./components/Loader"
 import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
+import Login, { Signup } from "./components/Login"
+import Logout from "./components/Login/Logout"
 
-import { api } from "./components/configs"
-
-// ========== make connection ==========
+// ========== make socket.io connection ==========
 var token = ""
 token = localStorage.getItem("DTOKEN")
 
 const ws = io.connect(api.base, {
-	query: {
-		token,
-		token1: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlU0NDgyNyIsImlhdCI6MTYzNzMyMzg5OH0.nmoA7Kuxkdou-CqCW-rPUQOX_n0DkwstAokko1GnUM4",
-		token1: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlU4NDQ3NiIsImlhdCI6MTYzNzMzMjk5OX0.7xjyvabyCpNUZbVmkIm_nykfH8lj-F-FCXrz55NYmP0",
-		token2: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlU0NTQ3NSIsImlhdCI6MTYzNzQxNTMwN30.jS9MTWv2VJMjxICEoLU2IMKtvNVD0o2TSVi8iHlRUFc",
-	},
+	query: { token },
 })
 
 ws.once("message", (m) => console.log(m))
@@ -53,6 +52,7 @@ const App = () => {
 
 	return (
 		<>
+			<Navbar />
 			<Router>
 				<Switch>
 					<Route exact path="/">
@@ -62,38 +62,22 @@ const App = () => {
 						<Livedoc ws={ws} />
 					</Route>
 					<Route exact path="/signup">
-						<Navbar title="Signup" opts={["livedoc", "login"]} />
-						<Loader />
+						<Signup />
 					</Route>
 					<Route exact path="/login">
-						<Navbar title="Login" opts={["livedoc", "signup"]} />
-						<Loader />
+						<Login />
+					</Route>
+					<Route exact path="/logout">
+						<Logout ws={ws} />
 					</Route>
 					<Route exact path="/about">
-						<Navbar
-							title="About"
-							opts={["livedoc", "login", "signup"]}
-						/>
+						<Loader />
 					</Route>
 					<Route exact path="/contact">
-						<Navbar
-							title="Contact"
-							opts={["livedoc", "login", "signup"]}
-						/>
 						<Loader />
 					</Route>
 				</Switch>
-
-				{/* <button onClick={() => ws.emit("show_all", { ok: true })}>
-					test
-				</button>
-				<button
-					onClick={() => ws.emit("user_status", { id: "U84476" })}
-				>
-					check status
-				</button>
-				<button onClick={() => ws.send("ok")}>Send</button>
-				<button onClick={calc_latency}>ping</button> */}
+				<Footer />
 			</Router>
 		</>
 	)

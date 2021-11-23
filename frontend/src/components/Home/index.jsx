@@ -1,7 +1,4 @@
-import { useParams } from "react-router-dom"
-import { Component, useSatate, useEffect } from "react"
-import Navbar from "../Navbar"
-import Footer from "../Footer"
+import { Component } from "react"
 import "./style.css"
 
 class Home extends Component {
@@ -9,12 +6,10 @@ class Home extends Component {
 		super(props)
 		this.ws = props.ws
 	}
-	componentDidMount() {}
 
 	render() {
 		return (
 			<>
-				<Navbar opts={["signup", "login", "livedoc"]} />
 				<main>
 					<section className="s1">
 						<div className="big1">
@@ -57,7 +52,6 @@ class Home extends Component {
 						</div>
 					</section>
 				</main>
-				<Footer />
 			</>
 		)
 	}
