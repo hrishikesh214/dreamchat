@@ -8,7 +8,7 @@ exports.getAllUsers = async (req, res) => {
 }
 
 exports.register = async (req, res) => {
-	const { username, email, password, name } = req.body
+	const { username, email, password, name, gender, hobbies } = req.body
 
 	// check for username exists
 	var _u = await User.findOne({ where: { username } })
@@ -27,6 +27,8 @@ exports.register = async (req, res) => {
 		username,
 		email,
 		name,
+		gender,
+		hobbies,
 	})
 	user.setPassword(password)
 	if (!(await user.save())) throw "Registration failed!"

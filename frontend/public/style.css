@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Righteous&display=swap");
+:root {
+	--fira: "Fira Sans", sans-serif;
+	--pacifico: "Pacifico", cursive;
+	--heavy: "Righteous", cursive;
+
+	--primary: #66fcf1;
+	--secondary: #45a29e;
+	--grey: #c5c6c7;
+	--dark: #1f2833;
+	--black: #0b0c10;
+	--white: #fff;
+}
+.loading-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: #1f2833;
+	z-index: 90;
+	display: -ms-grid;
+	display: grid;
+	place-content: center;
+}
+
+.loader {
+	height: 3rem;
+	aspect-ratio: 1;
+	background-color: var(--primary);
+	border-radius: 50%;
+	position: relative;
+	z-index: 1;
+	display: -ms-grid;
+	display: grid;
+	place-items: center;
+	color: var(--black);
+	font-size: 1.5rem;
+	font-weight: bold;
+	font-family: var(--pacifico);
+	cursor: pointer;
+}
+
+.loader::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: var(--primary);
+	border-radius: 50%;
+	-webkit-animation: loader-animation 1s linear infinite;
+	animation: loader-animation 1s linear infinite;
+	z-index: -1;
+	opacity: 0.75;
+}
+
+@-webkit-keyframes loader-animation {
+	to {
+		opacity: 0;
+		-webkit-transform: scale(1.5);
+		transform: scale(1.5);
+	}
+}
+
+@keyframes loader-animation {
+	to {
+		opacity: 0;
+		-webkit-transform: scale(1.5);
+		transform: scale(1.5);
+	}
+}
+/*# sourceMappingURL=style.css.map */

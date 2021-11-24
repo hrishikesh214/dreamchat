@@ -1,6 +1,5 @@
 import { useRouteMatch, Switch, Route, Redirect } from "react-router-dom"
 import { useState, useEffect } from "react"
-import Footer from "../Footer"
 import "./style.css"
 import TextEditor from "./Editor"
 import { v4 as uuidV4 } from "uuid"
@@ -13,6 +12,8 @@ export default function Livedoc({ ws }) {
 	const [toLoad, setToLoad] = useState(true)
 
 	useEffect(() => {
+		document.title = "Livedoc | Dreamchat"
+
 		ws.once("load_livedocs", (livedocs) => {
 			setLds(livedocs)
 			setToLoad(false)
@@ -54,8 +55,6 @@ export default function Livedoc({ ws }) {
 					</main>
 				</Route>
 			</Switch>
-
-			<Footer />
 		</>
 	)
 }

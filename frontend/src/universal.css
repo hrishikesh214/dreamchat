@@ -55,4 +55,8 @@ footer {
   -ms-grid-column: 1;
   grid-area: footer;
 }
+
+input {
+  accent-color: var(--primary);
+}
 /*# sourceMappingURL=universal.css.map */

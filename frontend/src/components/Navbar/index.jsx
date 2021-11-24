@@ -96,8 +96,8 @@ class Navbar extends Component {
 					</div>
 					<div className="title">{title}</div>
 					<div className="opts">
-						{opts.map((opt) => (
-							<div className="opt">
+						{opts.map((opt, index) => (
+							<div key={index} className="opt">
 								<a href={this.opts[opt].path}>
 									{this.opts[opt].name}
 								</a>

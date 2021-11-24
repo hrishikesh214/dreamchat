@@ -24,6 +24,14 @@ module.exports = (sequelize, DataTypes, Model) => {
 			email: {
 				type: DataTypes.STRING(30),
 			},
+			gender: {
+				type: DataTypes.STRING(10),
+				allowNull: true,
+			},
+			hobbies: {
+				type: DataTypes.TEXT,
+				defaultValue: "",
+			},
 			password: {
 				type: DataTypes.STRING,
 			},

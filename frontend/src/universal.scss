@@ -44,3 +44,7 @@ main {
 footer {
 	grid-area: footer;
 }
+
+input {
+	accent-color: var(--primary);
+}

@@ -28,7 +28,7 @@ export default function TextEditor({ ws }) {
 	const update_page = () => set_rf(_rf + 1)
 
 	useEffect(() => {
-		if (socket === null || quill === null) return
+		if (socket == null || quill == null) return
 		socket.once("load_document", (ld) => {
 			setLD(ld)
 			setToLoad(false)
@@ -46,7 +46,7 @@ export default function TextEditor({ ws }) {
 	}, [socket, quill, documentId])
 
 	useEffect(() => {
-		if (socket === null || quill === null) return
+		if (socket == null || quill == null) return
 
 		const interval = setInterval(() => {
 			socket.emit("save_document", quill.getContents())
@@ -57,7 +57,7 @@ export default function TextEditor({ ws }) {
 	}, [socket, quill])
 
 	useEffect(() => {
-		if (socket === null || quill === null) return
+		if (socket == null || quill == null) return
 
 		const handler = (delta) => {
 			quill.updateContents(delta)
@@ -70,7 +70,7 @@ export default function TextEditor({ ws }) {
 	}, [socket, quill])
 
 	useEffect(() => {
-		if (socket === null || quill === null) return
+		if (socket == null || quill == null) return
 
 		const handler = (delta, oldDelta, source) => {
 			if (source !== "user") return
